@@ -60,13 +60,15 @@ model_path = "sort_model.pth"
 torch.save(model.state_dict(), model_path)
 print("Model saved to", model_path)
 
-# Inference function
 def infer(model, input_sequence):
-    model.eval()
-    with torch.no_grad():
-        input_tensor = torch.tensor(input_sequence, dtype=torch.long).unsqueeze(0) # Batch size of 1
-        output = model(input_tensor)
-    return output.squeeze(0).argmax(dim=-1).tolist() # Simplified prediction, adjust as needed
+    model.eval()  # Set the model to evaluation mode
+    # Ensure the input tensor is on the same device as the model
+    input_tensor = torch.tensor(input_sequence, dtype=torch.long, device=model.device)
+    
+    with torch.no_grad():  # Disable gradient computation in inference mode
+        input_tensor = input_tensor.unsqueeze(0)  # Add batch dimension
+        output = model(input_tensor)  # Forward pass
+    return output.squeeze(0).argmax(dim=-1).tolist()  # Process output
 
 # Example of inference
 test_input = [2, 0, 1, 1, 0, 2]

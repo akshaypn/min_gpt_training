@@ -4,7 +4,6 @@ import torch
 from torch.utils.data import Dataset
 import pickle
 
-set_seed(3407)
 
 class SortDataset(Dataset):
     def __init__(self, split, length=6, num_digits=3):

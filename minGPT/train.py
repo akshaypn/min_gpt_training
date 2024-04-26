@@ -57,7 +57,7 @@ def infer(model, input_sequence, device):
     input_tensor = torch.tensor(input_sequence, dtype=torch.long, device=device).unsqueeze(0)
     with torch.no_grad():
         output = model(input_tensor)
-    return output.squeeze(0).argmax(dim=-1).tolist()
+    return output
 
 # Example of inference
 test_input = [2, 0, 1, 1, 0, 2]
